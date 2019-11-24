@@ -85,7 +85,12 @@
         <activity android:name=".activity.SearchForAddFriendActivity" />
         <activity android:name=".activity.VerificationMessageActivity" />
         <activity android:name=".activity.SearchFriendDetailActivity" />
-        <activity android:name=".activity.GroupNotFriendActivity"></activity>
+        <activity android:name=".activity.GroupNotFriendActivity" />
+        <activity android:name=".activity.MyChatActivity" />
+        <activity android:name=".activity.ChatDetailActivity" />
+        <activity android:name=".activity.CreateGroupActivity" />
+        <activity android:name=".activity.SearchAddOpenGroupActivity"></activity>
+        <activity android:name=".activity.SelectCreateGroupTypeActivity"/>
     </application>
 
 </manifest>

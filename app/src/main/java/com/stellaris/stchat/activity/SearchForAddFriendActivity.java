@@ -106,6 +106,7 @@ public class SearchForAddFriendActivity extends BaseActivity {
                                 mBtn_add.setEnabled(true);
                                 //已经是好友则不显示"加好友"按钮
                                 if (info.isFriend()) {
+                                    mBtn_add.setVisibility(View.VISIBLE);
                                     mBtn_add.setText("已是好友");
                                     mBtn_add.setEnabled(false);
                                     //如果是发起单聊.那么不能显示加好友按钮

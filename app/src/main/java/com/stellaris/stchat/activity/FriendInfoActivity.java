@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+
 import com.activeandroid.query.Update;
 import org.greenrobot.eventbus.EventBus;
 import cn.jpush.im.android.api.JMessageClient;
@@ -19,6 +21,7 @@ import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.UserInfo;
 import com.stellaris.stchat.R;
 import com.stellaris.stchat.application.StApplication;
+import com.stellaris.stchat.controller.FriendInfoController;
 import com.stellaris.stchat.database.FriendEntry;
 import com.stellaris.stchat.entity.Event;
 import com.stellaris.stchat.entity.EventType;
@@ -36,7 +39,7 @@ public class FriendInfoActivity extends BaseActivity {
     private String mTargetId;
     private String mTargetAppKey;
     private boolean mIsFromContact;
-
+    private FriendInfoController mFriendInfoController;
     private FriendInfoView mFriendInfoView;
     private UserInfo mUserInfo;
     private long mGroupId;
@@ -52,13 +55,19 @@ public class FriendInfoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_info);
+        mFriendInfoView = (FriendInfoView) findViewById(R.id.friend_info_view);
         mTargetId = getIntent().getStringExtra(StApplication.TARGET_ID);
         mTargetAppKey = getIntent().getStringExtra(StApplication.TARGET_APP_KEY);
         mUserID = getIntent().getStringExtra("targetId");
         if (mTargetAppKey == null) {
             mTargetAppKey = JMessageClient.getMyInfo().getAppKey();
         }
+        mFriendInfoView.initModel(this);
+
         int flags = getIntent().getFlags();
+        mFriendInfoController = new FriendInfoController(flags, this);
+        mFriendInfoView.setListeners(mFriendInfoController);
+        mFriendInfoView.setOnChangeListener(mFriendInfoController);
         mIsFromContact = getIntent().getBooleanExtra("fromContact", false);
         mIsFromSearch = getIntent().getBooleanExtra("fromSearch", false);
         mIsAddFriend = getIntent().getBooleanExtra("addFriend", false);
@@ -112,7 +121,9 @@ public class FriendInfoActivity extends BaseActivity {
                     if (TextUtils.isEmpty(mTitle)) {
                         mTitle = info.getNickname();
                     }
+                    Log.d("friendInfoAcitivity","#####nickname"+info.getNickname()+" #####username:"+info.getUserName());
                     mFriendInfoView.initInfo(info);
+
                 } else {
                     HandleResponseCode.onHandle(FriendInfoActivity.this, responseCode, false);
                 }
