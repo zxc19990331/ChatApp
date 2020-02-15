@@ -124,6 +124,7 @@
                         android:layout_weight="1"
                         android:singleLine="true"
                         android:textColor="#2C2C2C"
+                        android:text="test"
                         android:textSize="16sp"/>
 
                     <TextView
@@ -132,6 +133,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12.67dp"
                         android:gravity="top"
+                        android:text="2019/10/11 10:10:10"
                         android:textColor="#B3B3B3"
                         android:textSize="11.33sp"/>
 
@@ -158,6 +160,7 @@
                         android:layout_marginStart="3dp"
                         android:layout_marginTop="1.33dp"
                         android:ems="10"
+                        android:text="test_content"
                         android:singleLine="true"
                         android:textColor="#999999"
                         android:textSize="14sp"/>

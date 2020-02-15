@@ -21,12 +21,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import com.stellaris.stchat.R;
 import com.stellaris.stchat.application.StApplication;
+import com.stellaris.stchat.controller.AtItemController;
 import com.stellaris.stchat.controller.ConversationListController;
 import com.stellaris.stchat.controller.MenuItemController;
 import com.stellaris.stchat.entity.Event;
+import com.stellaris.stchat.view.AtItemView;
 import com.stellaris.stchat.view.ConversationListView;
 import com.stellaris.stchat.view.MenuItemView;
 
@@ -58,6 +61,7 @@ public class ConversationListFragment extends BaseFragment {
     private ConversationListView mConvListView;
     private ConversationListController mConvListController;
     private HandlerThread mThread;
+    private static final int SHOW_AT_MSG_RED_DOT = 0x2009;
     private static final int REFRESH_CONVERSATION_LIST = 0x3000;
     private static final int DISMISS_REFRESH_HEADER = 0x3001;
     private static final int ROAM_COMPLETED = 0x3002;
@@ -67,6 +71,11 @@ public class ConversationListFragment extends BaseFragment {
     private MenuItemView mMenuItemView;
     private NetworkReceiver mReceiver;
     private MenuItemController mMenuController;
+    //atMe的悬浮图标
+    private RelativeLayout mRlMain;
+    private AtItemView mAtMeItemView;
+    private AtItemController mAtMeItemController;
+
     protected boolean isCreate = false;
 
 
@@ -104,6 +113,13 @@ public class ConversationListFragment extends BaseFragment {
         mMenuController = new MenuItemController(this);
         mMenuItemView.setListeners(mMenuController);
 
+        //悬浮@小窗口
+        mRlMain = mConvListView.getmRlMain();
+        mAtMeItemView = new AtItemView(mRootView,this.getActivity(),this);
+        mAtMeItemView.initModule();
+        mAtMeItemController = new AtItemController(this,mRlMain);
+        mAtMeItemView.setOnClickListener(mAtMeItemController);
+        mAtMeItemView.setOnTouchListner(mAtMeItemController);
 
         ConnectivityManager manager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeInfo = manager.getActiveNetworkInfo();
@@ -148,6 +164,10 @@ public class ConversationListFragment extends BaseFragment {
 
     }
 
+    public void setAtRedDot(boolean b){
+        mAtMeItemView.setRedDot(b);
+    }
+
     public void showPopWindow() {
         mMenuPopWindow.setTouchable(true);
         mMenuPopWindow.setOutsideTouchable(true);
@@ -172,13 +192,26 @@ public class ConversationListFragment extends BaseFragment {
                 if (msg.isAtMe()) {
                     StApplication.isAtMe.put(groupId, true);
                     mConvListController.getAdapter().putAtConv(conv, msg.getId());
+                    //增加一条at消息记录
+                    StApplication.atMeMsg.add(new StApplication.GroupMsg(msg,(GroupInfo) msg.getTargetInfo()));
+                    //TODO:暂时这么写
+                    mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(SHOW_AT_MSG_RED_DOT,
+                            conv));
+                    //setAtRedDot(true);
                 }
                 if (msg.isAtAll()) {
                     StApplication.isAtall.put(groupId, true);
                     mConvListController.getAdapter().putAtAllConv(conv, msg.getId());
+                    //增加一条at消息记录
+                    StApplication.atAllMsg.add(new StApplication.GroupMsg(msg,(GroupInfo) msg.getTargetInfo()));
+                    mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(SHOW_AT_MSG_RED_DOT,
+                            conv));
+                    //TODO:暂时这么写
+                    //setAtRedDot(true);
                 }
                 mBackgroundHandler.sendMessage(mBackgroundHandler.obtainMessage(REFRESH_CONVERSATION_LIST,
                         conv));
+
             }
         } else {
             final UserInfo userInfo = (UserInfo) msg.getTargetInfo();
@@ -257,6 +290,9 @@ public class ConversationListFragment extends BaseFragment {
         public void handleMessage(android.os.Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
+                case SHOW_AT_MSG_RED_DOT:
+                    setAtRedDot(true);
+                    break;
                 case REFRESH_CONVERSATION_LIST:
                     Conversation conv = (Conversation) msg.obj;
                     if (conv.getType() != ConversationType.chatroom) {

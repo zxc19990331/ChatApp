@@ -95,19 +95,21 @@
         </FrameLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:id="@+id/ll_input"
-            android:background="@color/transparent">
+            android:background="@color/transparent"
+            android:paddingLeft="5dp">
 
-            <EditText
+            <com.stellaris.stchat.utils.RichEditText
                 android:id="@+id/edit_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="请输入"
                 android:layout_marginLeft="5dp"
+                android:textSize="16sp"
                 android:background="@null"
-                android:maxLines="2"
+                android:maxLines="1"
                 />
 
             <Button
@@ -116,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/jmui_jpush_blue"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:text="发送"
                 />
 

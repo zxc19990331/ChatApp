@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,6 +22,33 @@
             android:text="会话"
             android:textColor="@android:color/white"
             android:textSize="18sp"/>
+        <RelativeLayout
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/create_group_btn"
+            android:focusableInTouchMode="true">
+
+            <ImageButton
+                android:id="@+id/at_button_top"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent"
+                android:src="@drawable/icon_at_nor"/>
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:id="@+id/at_red_dot_btn"
+                android:src="@drawable/unread_msg_red"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"/>
+
+
+        </RelativeLayout>
+
+
 
         <ImageButton
             android:id="@+id/create_group_btn"
@@ -32,10 +61,11 @@
 
     </RelativeLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+        android:id="@+id/conv_main_rl"
+       >
 
         <TextView
             android:id="@+id/null_conversation"
@@ -57,5 +87,35 @@
             android:dividerHeight="0.3dp"
             android:headerDividersEnabled="false"/>
 
-    </FrameLayout>
+        <RelativeLayout
+            android:id="@+id/at_me_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+           >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_at_nor"
+                />
+
+            <ImageView
+                android:id="@+id/at_red_dot"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/red_circle"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>

@@ -85,6 +85,7 @@ import com.stellaris.stchat.pickerimage.utils.StorageUtil;
 import com.stellaris.stchat.pickerimage.utils.StringUtil;
 import com.stellaris.stchat.utils.CommonUtils;
 import com.stellaris.stchat.utils.IdHelper;
+import com.stellaris.stchat.utils.RichEditText;
 import com.stellaris.stchat.utils.SharePreferenceManager;
 import com.stellaris.stchat.utils.ToastUtil;
 import com.stellaris.stchat.utils.event.ImageEvent;
@@ -104,7 +105,7 @@ public class ChatActivity extends BaseActivity implements  View.OnClickListener 
 
     DropDownListView lvChat;
 
-    EditText etInput;
+    RichEditText etInput;
 
     public static final String JPG = ".jpg";
     private static String MsgIDs = "msgIDs";
@@ -317,8 +318,8 @@ public class ChatActivity extends BaseActivity implements  View.OnClickListener 
                 temp = s;
                 if (s.length() > 0 && after >= 1 && s.subSequence(start, start + 1).charAt(0) == '@' && !mLongClick) {
                     if (null != mConv && mConv.getType() == ConversationType.group) {
-//                        TODO:At功能
-                        //ChooseAtMemberActivity.show(ChatActivity.this, etInput, mConv.getTargetId());
+//
+                        ChooseAtMemberActivity.show(ChatActivity.this, etInput, mConv.getTargetId());
                     }
                 }
             }
@@ -854,7 +855,7 @@ public class ChatActivity extends BaseActivity implements  View.OnClickListener 
                     }
                     mAtList.add(userInfo);
                     mLongClick = true;
-                    etInput.setText(etInput.getText().toString() + data.getStringExtra(StApplication.NAME));
+                    etInput.appendMention(data.getStringExtra(StApplication.NAME));
                     etInput.setSelection(etInput.getText().length());
                 }
                 break;

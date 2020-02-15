@@ -13,6 +13,7 @@ import cn.jpush.im.android.api.model.Conversation;
 import com.stellaris.stchat.R;
 import com.stellaris.stchat.activity.ChatActivity;
 import com.stellaris.stchat.adapter.ChattingListAdapter;
+import com.stellaris.stchat.utils.RichEditText;
 import com.stellaris.stchat.view.listview.DropDownListView;
 
 /**
@@ -26,7 +27,7 @@ public class ChatView extends RelativeLayout {
     private TextView mGroupNumTv;
     private ImageButton mRightBtn;
     private DropDownListView mChatListView;
-    private EditText mEditInput;
+    private RichEditText mEditInput;
     private Button mBtnSend;
     private Conversation mConv;
     private Button mAtMeBtn;
@@ -53,7 +54,7 @@ public class ChatView extends RelativeLayout {
         mRightBtn = (ImageButton) findViewById(R.id.jmui_right_btn);
         mChatTitle = (TextView) findViewById(R.id.jmui_title);
         mAtMeBtn = (Button) findViewById(R.id.jmui_at_me_btn);
-        mEditInput = (EditText)findViewById(R.id.edit_input);
+        mEditInput = (RichEditText)findViewById(R.id.edit_input);
         mBtnSend = (Button)findViewById(R.id.btn_send);
         if (densityDpi <= 160) {
             mChatTitle.setMaxWidth((int) (180 * density + 0.5f));
@@ -70,7 +71,7 @@ public class ChatView extends RelativeLayout {
         return mBtnSend;
     }
 
-    public EditText getEditInput() {
+    public RichEditText getEditInput() {
         return mEditInput;
     }
 

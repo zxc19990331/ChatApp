@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView android:id="@+id/at_msg_list_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="0dp"
+    android:divider="@drawable/main_list_divider_line"
+    android:dividerHeight="0.3dp"
+    android:headerDividersEnabled="false"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

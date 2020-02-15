@@ -36,6 +36,7 @@ public class ConversationListView {
     private LinearLayout mSearch;
     private TextView mAllUnReadMsg;
     private ConversationListFragment mFragment;
+    private RelativeLayout mRlMain;
 
     public ConversationListView(View view, Context context, ConversationListFragment fragment) {
         this.mConvListFragment = view;
@@ -55,6 +56,7 @@ public class ConversationListView {
         mSearch = (LinearLayout) mSearchHead.findViewById(R.id.search_title);
         mNull_conversation = (TextView) mConvListFragment.findViewById(R.id.null_conversation);
         mAllUnReadMsg = (TextView) mFragment.getActivity().findViewById(R.id.all_unread_number);
+        mRlMain = (RelativeLayout)mConvListFragment.findViewById(R.id.conv_main_rl);
         mConvListView.addHeaderView(mLoadingHeader);
         mConvListView.addHeaderView(mSearchHead);
         mConvListView.addHeaderView(mHeader);
@@ -131,5 +133,7 @@ public class ConversationListView {
         });
     }
 
-
+    public RelativeLayout getmRlMain() {
+        return mRlMain;
+    }
 }

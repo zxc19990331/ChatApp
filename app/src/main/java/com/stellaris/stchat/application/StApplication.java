@@ -44,6 +44,29 @@ public class StApplication extends com.activeandroid.app.Application{
     public static Map<Long, Boolean> isAtall = new HashMap<>();
     public static List<Message> forwardMsg = new ArrayList<>();
 
+    public static class GroupMsg{
+        private Message msg;
+        private GroupInfo groupInfo;
+
+        public Message getMsg() {
+            return msg;
+        }
+
+        public GroupInfo getGroupInfo() {
+            return groupInfo;
+        }
+
+
+       public GroupMsg(Message _msg,GroupInfo _groupInfo){
+            msg = _msg;
+            groupInfo = _groupInfo;
+        }
+
+    }
+    public static List<GroupMsg> atMeMsg = new ArrayList<>();
+    public static List<GroupMsg> atAllMsg = new ArrayList<>();
+
+
     public static long registerOrLogin = 1;
     public static final int REQUEST_CODE_TAKE_PHOTO = 4;
     public static final int REQUEST_CODE_SELECT_PICTURE = 6;

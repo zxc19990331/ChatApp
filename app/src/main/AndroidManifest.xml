@@ -89,8 +89,10 @@
         <activity android:name=".activity.MyChatActivity" />
         <activity android:name=".activity.ChatDetailActivity" />
         <activity android:name=".activity.CreateGroupActivity" />
-        <activity android:name=".activity.SearchAddOpenGroupActivity"></activity>
-        <activity android:name=".activity.SelectCreateGroupTypeActivity"/>
+        <activity android:name=".activity.SearchAddOpenGroupActivity" />
+        <activity android:name=".activity.SelectCreateGroupTypeActivity" />
+        <activity android:name=".activity.AtMeActivity" />
+        <activity android:name=".activity.ChooseAtMemberActivity"></activity>
     </application>
 
 </manifest>

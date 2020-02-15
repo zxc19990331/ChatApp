@@ -3,6 +3,8 @@
     <!--极光IM-->
     <string name="userName">用户名</string>
 
+    <string name="at_me"></string>
+
     <!-- ReLogin/login/register界面中使用到的字符串 -->
     <string name="change_user_btn">切换账号</string>
     <string name="register">注册</string>

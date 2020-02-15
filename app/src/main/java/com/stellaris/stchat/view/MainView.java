@@ -30,6 +30,8 @@ public class MainView extends RelativeLayout {
         }
         mViewContainer = (ScrollControlViewPager) findViewById(R.id.viewpager);
         mViewContainer.setOffscreenPageLimit(2);
+        //禁止滑动
+        mViewContainer.setScroll(false);
         mBtnList[0].setTextColor(getResources().getColor(R.color.actionbar_pres_color));
         mBtnList[0].setSelected(true);
         mAllContactNumber = findViewById(R.id.all_contact_number);
