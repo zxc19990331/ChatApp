@@ -142,6 +142,8 @@ public class ChatActivity extends BaseActivity implements  View.OnClickListener 
     private static final String GROUP_ID = "groupId";
     private int mAtMsgId;
     private int mAtAllMsgId;
+    //at界面跳轉的msgid
+    private int mToAtMsgId;
     private int mUnreadMsgCnt;
     private boolean mShowSoftInput = false;
     private List<UserInfo> forDel = new ArrayList<>();
@@ -212,6 +214,7 @@ public class ChatActivity extends BaseActivity implements  View.OnClickListener 
             } else {
                 mAtMsgId = intent.getIntExtra("atMsgId", -1);
                 mAtAllMsgId = intent.getIntExtra("atAllMsgId", -1);
+                mToAtMsgId = intent.getIntExtra("toAtMsgId",-1);
                 mConv = JMessageClient.getGroupConversation(mGroupId);
                 if (mConv != null) {
                     GroupInfo groupInfo = (GroupInfo) mConv.getTargetInfo();
@@ -245,6 +248,16 @@ public class ChatActivity extends BaseActivity implements  View.OnClickListener 
                         }
                     }
                 });
+
+                //從at界面跳转，直接显示那条at信息所在的位置
+                if(mToAtMsgId != -1){
+                    if (mUnreadMsgCnt < ChattingListAdapter.PAGE_MESSAGE_COUNT) {
+                        int position = ChattingListAdapter.PAGE_MESSAGE_COUNT + mAtMsgId - mConv.getLatestMessage().getId();
+                        mChatView.setToPosition(position);
+                    } else {
+                        mChatView.setToPosition(mToAtMsgId + mUnreadMsgCnt - mConv.getLatestMessage().getId());
+                    }
+                }
                 if (mAtMsgId != -1) {
                     mUnreadMsgCnt = mConv.getUnReadMsgCnt();
                     // 如果 @我 的消息位于屏幕显示的消息之上，显示 有人@我 的按钮

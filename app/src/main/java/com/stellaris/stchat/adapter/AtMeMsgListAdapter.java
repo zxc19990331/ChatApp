@@ -1,15 +1,19 @@
 package com.stellaris.stchat.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.stellaris.stchat.R;
+import com.stellaris.stchat.activity.ChatActivity;
 import com.stellaris.stchat.application.StApplication;
 import com.stellaris.stchat.utils.TimeFormat;
 import com.stellaris.stchat.utils.ViewHolder;
@@ -65,8 +69,20 @@ public class AtMeMsgListAdapter extends BaseAdapter  {
         TextView date = ViewHolder.get(convertView,R.id.jmui_send_time_txt);
         TextView content = ViewHolder.get(convertView,R.id.jmui_msg_content);
         Message msg = getItem(position).getMsg();
+        LinearLayout item = ViewHolder.get(convertView,R.id.at_item);
+        item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int msg_id = msg.getId();
+                Intent intent = new Intent();
+                intent.putExtra("toAtMsgId",msg_id);
+                intent.putExtra(StApplication.GROUP_ID,msgItem.getGroupInfo().getGroupID());
+                intent.setClass(context, ChatActivity.class);
+                context.startActivity(intent);
+            }
+        });
         displayName.setText(msg.getFromUser().getDisplayName());
-        date.setText(new TimeFormat(context,msg.getCreateTime()).getTime());
+        date.setText(new TimeFormat(context,msg.getCreateTime()).getDetailTime());
         content.setText(((TextContent)msg.getContent()).getText());
         fromGroup.setText(getItem(position).getGroupInfo().getGroupName());
         return convertView;
